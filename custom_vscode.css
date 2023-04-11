@@ -1,0 +1,3 @@
+.decorationsOverviewRuler, .actions-container[aria-label="Editor actions"]  {
+	display: none !important;
+}

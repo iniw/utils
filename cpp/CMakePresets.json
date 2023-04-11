@@ -1,0 +1,55 @@
+{
+	"version": 6,
+	"configurePresets": [
+		{
+			"name": "base",
+			"hidden": true,
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_EXPORT_COMPILE_COMMANDS": true,
+				"CMAKE_TOOLCHAIN_FILE": {
+					"value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+					"type": "FILEPATH"
+				},
+				"VCPKG_TARGET_TRIPLET": "x64-windows-static"
+			}
+		},
+		{
+			"name": "llvm_vcpkg",
+			"displayName": "llvm & vcpkg",
+			"inherits": [
+				"base"
+			],
+			"generator": "Ninja Multi-Config",
+			"cacheVariables": {
+				"CMAKE_C_COMPILER": "clang",
+				"CMAKE_CXX_COMPILER": "clang++"
+			}
+		},
+		{
+			"name": "msbuild_vcpkg",
+			"displayName": "msbuild & vcpkg",
+			"inherits": [
+				"base"
+			],
+			"generator": "Visual Studio 17 2022"
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "release",
+			"configurePreset": "llvm_vcpkg",
+			"configuration": "Release"
+		},
+		{
+			"name": "debug",
+			"configurePreset": "llvm_vcpkg",
+			"configuration": "Debug"
+		},
+		{
+			"name": "release with debug info",
+			"configurePreset": "llvm_vcpkg",
+			"configuration": "RelWithDebInfo"
+		}
+	]
+}
